@@ -2,6 +2,7 @@ class UsersController < ApplicationController
 
 	def index
 		@users = User.all
+		@users = @users.where("first_name like ? or last_name like ?", "%#{params[:search]}%", "%#{params[:search]}%") if params[:search]
 	end
 
 	def new
