@@ -11,33 +11,64 @@
     </div>
   <% end %>
 
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <%= form.label :first_name %>
+        <%= form.text_field :first_name, class: "form-control" %>
+      </div>
 
-  <div class="form-group">
-    <%= form.label :first_name %>
-    <%= form.text_field :first_name, class: "form-control" %>
+      <div class="form-group">
+        <%= form.label :last_name %>
+        <%= form.text_field :last_name, class: "form-control" %>
+      </div>
+    </div>
   </div>
 
-  <div class="form-group">
-    <%= form.label :last_name %>
-    <%= form.text_field :last_name, class: "form-control" %>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <%= form.label :email %>
+        <%= form.text_field :email, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :phone_number %>
+        <%= form.text_field :phone_number, class: "form-control" %>
+      </div>
+    </div>
   </div>
 
-  <div class="form-group">
-    <%= form.label :email %>
-    <%= form.text_field :email, class: "form-control" %>
-  </div>
+  <h4>Addresses</h4>
 
-  <div class="form-group">
-    <%= form.label :phone_number %>
-    <%= form.text_field :phone_number, class: "form-control" %>
-  </div>
+    <%= form.fields_for :addresses do |builder| %>
+      <%= render partial: "address_fields", locals: { f: builder } %>
+    <% end %>
 
-  <div class="form-group">
-    <%= form.label :address %>
-    <%= form.text_field :address, class: "form-control" %>
-  </div>
+    <div class="row">
+      <div class="col-md-6">
+        <i class="fa fa-plus m-r-sm blue-text" id="add-custom-fields"></i>
+        <%= link_to_add_fields("Add Address", form, :addresses) %>
+      </div>
+    </div>
 
-  <div class="form-group">
-    <%= form.submit :save %>
+  <div class="form-group mt-3">
+    <%= form.submit :save, class: "btn btn-success" %>
   </div>
 <% end %>
+
+
+<script type="text/javascript">
+  function add_fields(link, association, content) {
+    var new_id = new Date().getTime();
+    var regexp = new RegExp("new_" + association, "g");
+    var content = content.replace(regexp, new_id)
+
+    $(link).parents().find('.address-fields').last().after(content.replace(regexp, new_id));
+}
+
+function remove_fields(link) {
+    $(link).prev("input[type=hidden]").val("1");
+    $(link).closest(".address-fields").hide();
+}
+</script>
