@@ -1,10 +1,11 @@
 class UsersController < ApplicationController
 
 	def index
-		@users = UserList.new({ search: params[:search], 
-														page: params[:page], 
-														per_page: 10 })
-										 .list
+		@users = UserList.new({ search: params[:search],
+														page: params[:page],
+														per_page: 10,
+														sort_order: params[:sort_order],
+														sort_column: params[:sort_column] }).list
 	end
 
 	def new

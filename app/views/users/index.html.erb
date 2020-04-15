@@ -8,35 +8,35 @@
     <div class="col-md-2">
       <%= submit_tag "Search", class: "btn btn-primary" %>
     </div>
+
+    <div class="col-md-4 text-right">
+      <%= link_to "New User", new_user_path, class: "btn btn-primary" %>
+    </div>
   </div>
 <% end %>
 
 <% if @users.present? %>
-    <table class="table">
+    <table class="table table-bordered" id="users-list-data">
     	<thead>
         <tr>
-          <th onclick="sortColumn()">First Name</th>
-          <th>Last Name</th>
-          <th>Email</th>
-          <th>Phone Number</th>
-          <th>Address</th>
+          <th sort-order='asc' sort-column="first_name">
+            First Name <i class="fas fa-sort"></i>
+          </th>
+          <th sort-order='asc' sort-column="last_name">
+            Last Name <i class="fas fa-sort"></i>
+          </th>
+          <th sort-order='asc' sort-column="email">
+            Email <i class="fas fa-sort"></i>
+          </th>
+          <th sort-order='asc' sort-column="phone_number">
+            Phone Number <i class="fas fa-sort"></i>
+          </th>
           <th>Actions</th>
         </tr>
       </thead>
 
       <tbody>
-
-      	<% @users.each do |user| %>
-    	    <tr>
-    	    	<td><%= user.first_name %></td>
-    	    	<td><%= user.last_name %></td>
-    	    	<td><%= user.email %></td>
-    	    	<td><%= user.phone_number %></td>
-    	    	<td><%= user.address %></td>
-    	    	<td><%= link_to "Edit", edit_user_path(user) %></td>
-    	    </tr>
-    	   <% end %>
-
+        <%= render partial: "index", locals: { users: @users } %>
       </tbody>
 
     </table>
@@ -47,14 +47,8 @@
   <h7>No users found</h7>
 <% end %>
 
-
-<br/>
-
-<%= link_to "New User", new_user_path %>
-
-
 <script type="text/javascript">
-  function sortColumn() {
-    alert('hello')
-  }
+ $(function() {
+  sortData();
+ }); 
 </script>

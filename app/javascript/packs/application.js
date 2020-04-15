@@ -17,3 +17,25 @@ require("channels")
 // const imagePath = (name) => images(name, true)
 
 import "bootstrap"
+import "../stylesheets/application";
+import "@fortawesome/fontawesome-free/js/all";
+
+import $ from 'jquery';
+global.$ = jQuery;
+
+window.sortData = function(obj) {
+	$("#users-list-data th").on("click", function() {
+    var sortOrder = $(this).attr('sort-order') == "asc" ? "desc" : "asc";
+    var sortColumn = $(this).attr('sort-column');
+    var search = $('#search').val();
+
+    $(this).attr('sort-order', sortOrder);
+
+    $.ajax({
+      url: `/users?sort_order=${sortOrder}&sort_column=${sortColumn }&search=${search}`,
+      method: 'GET',
+      dataType: 'script'
+    });
+  });
+}
+

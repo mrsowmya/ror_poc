@@ -4,13 +4,17 @@ class UserList
 		@search = attributes[:search]
 		@page = attributes[:page]
 		@per_page = attributes[:per_page]
+		@sort_order = attributes[:sort_order] || 'asc'
+		@sort_column = attributes[:sort_column] || 'first_name'
 	end
 
 	def list
-		users = User.page(@page)
-           			.per_page(@per_page)
+		users = User.all
 		users = search_filter(users) if @search.present?
-		users
+		users = sort_filter(users)
+
+		users.page(@page)
+         .per_page(@per_page)
 	end
 
 	private
@@ -19,6 +23,7 @@ class UserList
 		users.where("first_name like ? or last_name like ?", "%#{@search}%", "%#{@search}%")
 	end
 
-	def sort
+	def sort_filter(users)
+		users.order("#{@sort_column} #{@sort_order}")
 	end
 end
