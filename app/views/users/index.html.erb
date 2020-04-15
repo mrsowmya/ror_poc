@@ -1,40 +1,60 @@
-<div class="row mb-3 mt-3">
-  <div class="col-md-6">
-    <%= text_field_tag :search, params[:search], class: "form-control" %>
+<%= form_tag users_path, method: :get do %>
+  <div class="row mt-3 mb-3">
+
+    <div class="col-md-6">
+      <%= text_field_tag :search, params[:search], { class: "form-control", placeholder: "search" } %>
+    </div>
+
+    <div class="col-md-2">
+      <%= submit_tag "Search", class: "btn btn-primary" %>
+    </div>
   </div>
-</div>
+<% end %>
 
-<div class="row">
-  <table class="table">
-  	<thead class="thead-dark">
-      <tr>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Email</th>
-        <th>Phone Number</th>
-        <th>Address</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
+<% if @users.present? %>
+    <table class="table">
+    	<thead>
+        <tr>
+          <th onclick="sortColumn()">First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Phone Number</th>
+          <th>Address</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
 
-    <tbody>
+      <tbody>
 
-    	<% @users.each do |user| %>
-  	    <tr>
-  	    	<td><%= user.first_name %></td>
-  	    	<td><%= user.last_name %></td>
-  	    	<td><%= user.email %></td>
-  	    	<td><%= user.phone_number %></td>
-  	    	<td><%= user.address %></td>
-  	    	<td><%= link_to "Edit", edit_user_path(user) %></td>
-  	    </tr>
-  	   <% end %>
-    </tbody>
+      	<% @users.each do |user| %>
+    	    <tr>
+    	    	<td><%= user.first_name %></td>
+    	    	<td><%= user.last_name %></td>
+    	    	<td><%= user.email %></td>
+    	    	<td><%= user.phone_number %></td>
+    	    	<td><%= user.address %></td>
+    	    	<td><%= link_to "Edit", edit_user_path(user) %></td>
+    	    </tr>
+    	   <% end %>
 
-  </table>
-</div>
+      </tbody>
+
+    </table>
+
+    <%= will_paginate @users, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+
+<% else %>
+  <h7>No users found</h7>
+<% end %>
 
 
 <br/>
 
 <%= link_to "New User", new_user_path %>
+
+
+<script type="text/javascript">
+  function sortColumn() {
+    alert('hello')
+  }
+</script>
