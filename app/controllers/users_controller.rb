@@ -1,5 +1,8 @@
 class UsersController < ApplicationController
 
+	#
+	# index
+	#
 	def index
 		@users = UserList.new({ search: params[:search],
 														page: params[:page],
@@ -8,11 +11,17 @@ class UsersController < ApplicationController
 														sort_column: params[:sort_column] }).list
 	end
 
+	#
+	# new
+	#
 	def new
 		@user = User.new
 		@user.addresses.build
 	end
 
+	#
+	# create
+	#
 	def create
 		@user = User.new(user_params)
 
@@ -23,11 +32,17 @@ class UsersController < ApplicationController
 		end
 	end
 
+	#
+	# edit
+	#
 	def edit
 		@user = User.find(params[:id])
 		@user.addresses.build unless @user.addresses.present?
 	end
 
+	#
+	# update
+	#
 	def update
 		@user = User.find(params[:id])
 
@@ -40,6 +55,9 @@ class UsersController < ApplicationController
 
 	private
 
+	#
+	# user_params
+	#
 	def user_params
 		params.require(:user).permit(:first_name, 
 																 :last_name, 

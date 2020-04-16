@@ -1,5 +1,10 @@
 class UserList
 
+	#
+	# initialize
+	#
+	# @param {Hash} attributes
+	#
 	def initialize(attributes = {})
 		@search = attributes[:search]
 		@page = attributes[:page]
@@ -8,6 +13,9 @@ class UserList
 		@sort_column = attributes[:sort_column] || 'first_name'
 	end
 
+	#
+	# list
+	#
 	def list
 		users = User.all
 		users = search_filter(users) if @search.present?
@@ -19,10 +27,20 @@ class UserList
 
 	private
 
+	#
+	# search_filter
+	#
+	# @param {Object} users
+	#
 	def search_filter(users)
 		users.where("first_name ilike ? or last_name ilike ?", "%#{@search}%", "%#{@search}%")
 	end
 
+	#
+	# sort_filter
+	#
+	# @param {Object} users
+	#
 	def sort_filter(users)
 		users.order("#{@sort_column} #{@sort_order}")
 	end
