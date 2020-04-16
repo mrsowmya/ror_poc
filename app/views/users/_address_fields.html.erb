@@ -3,11 +3,13 @@
     <div class="form-group col-md-3">
       <%= f.label :street_address %>
       <%= f.text_field :street_address, class: "form-control" %>
+      <%= error_messages_for(f.object, :street_address) %>
     </div>
 
     <div class="form-group col-md-3">
       <%= f.label :city %>
       <%= f.text_field :city, class: "form-control" %>
+      <%= error_messages_for(f.object, :city) %>
     </div>
   </div>
 
@@ -15,11 +17,13 @@
     <div class="form-group col-md-3">
       <%= f.label :state %>
       <%= f.text_field :state, class: "form-control" %>
+      <%= error_messages_for(f.object, :state) %>
     </div>
 
     <div class="form-group col-md-3">
       <%= f.label :zip %>
       <%= f.text_field :zip, class: "form-control" %>
+      <%= error_messages_for(f.object, :zip) %>
     </div>
 
     <div class="col-md-3 my-4">
