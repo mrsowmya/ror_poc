@@ -20,7 +20,7 @@ class UserList
 	private
 
 	def search_filter(users)
-		users.where("first_name like ? or last_name like ?", "%#{@search}%", "%#{@search}%")
+		users.where("first_name ilike ? or last_name ilike ?", "%#{@search}%", "%#{@search}%")
 	end
 
 	def sort_filter(users)

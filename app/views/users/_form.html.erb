@@ -41,7 +41,7 @@
 
   <h4>Addresses</h4>
 
-    <%= form.fields_for :addresses do |builder| %>
+    <%= form.fields_for :addresses, @user.addresses do |builder| %>
       <%= render partial: "address_fields", locals: { f: builder } %>
     <% end %>
 
@@ -65,10 +65,10 @@
     var content = content.replace(regexp, new_id)
 
     $(link).parents().find('.address-fields').last().after(content.replace(regexp, new_id));
-}
+  }
 
-function remove_fields(link) {
+  function remove_fields(link) {
     $(link).prev("input[type=hidden]").val("1");
     $(link).closest(".address-fields").hide();
-}
+  }
 </script>

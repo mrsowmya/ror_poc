@@ -10,7 +10,7 @@ class UsersController < ApplicationController
 
 	def new
 		@user = User.new
-		@user.addresses.new
+		@user.addresses.build
 	end
 
 	def create
@@ -25,6 +25,7 @@ class UsersController < ApplicationController
 
 	def edit
 		@user = User.find(params[:id])
+		@user.addresses.build unless @user.addresses.present?
 	end
 
 	def update
@@ -40,6 +41,16 @@ class UsersController < ApplicationController
 	private
 
 	def user_params
-		params.require(:user).permit(:first_name, :last_name, :email, :phone_number, :address)
+		params.require(:user).permit(:first_name, 
+																 :last_name, 
+																 :email, 
+																 :phone_number, 
+																 addresses_attributes: [
+																 	:id, 
+																 	:street_address, 
+																 	:city, 
+																 	:state, 
+																 	:zip,
+																 	:_destroy])
 	end
 end
