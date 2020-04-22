@@ -7,8 +7,8 @@ class UserList
 	#
 	def initialize(attributes = {})
 		@search = attributes[:search]
-		@page = attributes[:page]
-		@per_page = attributes[:per_page]
+		@page = attributes[:page] || 1
+		@per_page = attributes[:per_page] || 10
 		@sort_order = attributes[:sort_order] || 'asc'
 		@sort_column = attributes[:sort_column] || 'first_name'
 	end

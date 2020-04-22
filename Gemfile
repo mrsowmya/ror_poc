@@ -54,6 +54,12 @@ end
 group :development, :test do
   gem 'better_errors'
   gem "pry-byebug"
+  gem 'rspec-rails', '~> 4.0.0'
+  gem 'shoulda-matchers'
+  gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'master'
+  gem 'factory_girl_rails'
+  gem 'database_cleaner-active_record'
+  gem 'rails-controller-testing'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
