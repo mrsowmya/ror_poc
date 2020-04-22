@@ -1,0 +1,54 @@
+<%= form_tag users_path, method: :get, remote: true do %>
+  <div class="row mt-3 mb-3">
+
+    <div class="col-md-6">
+      <%= text_field_tag :search, params[:search], { class: "form-control", placeholder: "search" } %>
+    </div>
+
+    <div class="col-md-2">
+      <%= submit_tag "Search", class: "btn btn-primary" %>
+    </div>
+
+    <div class="col-md-4 text-right">
+      <%= link_to "New User", new_user_path, class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>
+
+<% if @users.present? %>
+    <table class="table table-bordered" id="users-list-data">
+    	<thead>
+        <tr>
+          <th sort-order='asc' sort-column="first_name">
+            First Name <i class="fas fa-sort"></i>
+          </th>
+          <th sort-order='asc' sort-column="last_name">
+            Last Name <i class="fas fa-sort"></i>
+          </th>
+          <th sort-order='asc' sort-column="email">
+            Email <i class="fas fa-sort"></i>
+          </th>
+          <th sort-order='asc' sort-column="phone_number">
+            Phone Number <i class="fas fa-sort"></i>
+          </th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <%= render partial: "index", locals: { users: @users } %>
+      </tbody>
+
+    </table>
+
+    <%= will_paginate @users, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+
+<% else %>
+  <h7>No users found</h7>
+<% end %>
+
+<script type="text/javascript">
+ $(function() {
+  sortData();
+ }); 
+</script>

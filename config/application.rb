@@ -15,5 +15,13 @@ module RorPoc
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
+
+    if Rails.env.development? || Rails.env.test?
+      config.autoload_paths += %W(#{config.root}/lib/ror_poc)
+    end
+
+    if Rails.env.staging? || Rails.env.production?
+      config.eager_load_paths += %W(#{config.root}/lib/ror_poc)
+    end
   end
 end
